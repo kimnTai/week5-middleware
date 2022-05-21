@@ -23,6 +23,19 @@ class Exception {
     notFindRoute = (req: Request, res: Response) => {
         res.status(404).send({ status: "error", message: "無此路由資訊" });
     };
+
+    /**
+     * @description 捕捉自訂錯誤
+     * @param {*} err
+     * @param {*} req
+     * @param {*} res
+     * @param {*} next
+     * @type {ErrorRequestHandler}
+     * @memberof Exception
+     */
+    catchCustomError: ErrorRequestHandler = (err, req, res, next) => {
+        res.status(500).send({ status: "error", message: err.message });
+    };
 }
 
 const exception = new Exception();

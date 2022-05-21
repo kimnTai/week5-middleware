@@ -18,5 +18,6 @@ app.use("/posts", Router.posts);
 app.use("/users", Router.users);
 
 app.use(exception.notFindRoute);
+app.use(exception.catchCustomError);
 
 app.listen(process.env.PORT, () => console.log("伺服器啟動中"));
