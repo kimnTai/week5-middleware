@@ -5,6 +5,7 @@ import "dotenv/config";
 import "./connection";
 import "./model";
 import * as Router from "./router";
+import { exception } from "./exception";
 
 const app = express();
 
@@ -16,6 +17,6 @@ app.use(morgan("dev"));
 app.use("/posts", Router.posts);
 app.use("/users", Router.users);
 
-app.listen(process.env.PORT, () => console.log("伺服器啟動中"));
+app.use(exception.notFindRoute);
 
-export default app;
+app.listen(process.env.PORT, () => console.log("伺服器啟動中"));

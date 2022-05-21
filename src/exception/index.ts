@@ -13,6 +13,16 @@ class Exception {
             console.error("未捕捉到的 rejection :", promise, "原因：", reason);
         });
     }
+
+    /**
+     * @description 無此路由錯誤
+     * @param {Request} req
+     * @param {Response} res
+     * @memberof Exception
+     */
+    notFindRoute = (req: Request, res: Response) => {
+        res.status(404).send({ status: "error", message: "無此路由資訊" });
+    };
 }
 
 const exception = new Exception();
