@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 
 class Utils {
-    static catchAsync(func: any) {
+    catchAsync(func: RequestHandler) {
         return (req: Request, res: Response, next: NextFunction) => {
-            func(req, res, next).catch(next);
+            Promise.resolve(func(req, res, next)).catch(next);
         };
     }
 }
 
-export default Utils;
+export default new Utils();
