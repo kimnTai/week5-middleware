@@ -25,13 +25,9 @@ class PostsController {
      * @memberof PostsController
      */
     createPosts = async (req: Request, res: Response): Promise<void> => {
-        try {
-            const { content, type, user, image } = req.body;
-            const result = await Model.Posts.create({ content, type, user, image });
-            res.send({ status: "success", result });
-        } catch (error: any) {
-            res.status(400).send({ status: "error", message: error.message });
-        }
+        const { content, type, user, image } = req.body;
+        const result = await Model.Posts.create({ content, type, user, image });
+        res.send({ status: "success", result });
     };
 
     /**
@@ -56,13 +52,9 @@ class PostsController {
     editPosts = async (req: Request, res: Response): Promise<void> => {
         const { id } = req.params;
         const { content, type, name } = req.body;
-        try {
-            await Model.Posts.findByIdAndUpdate(id, { content, type, name });
-            const result = await Model.Posts.findById(id);
-            res.send({ status: "success", result });
-        } catch (error: any) {
-            res.status(400).send({ status: "error", message: error.message });
-        }
+        await Model.Posts.findByIdAndUpdate(id, { content, type, name });
+        const result = await Model.Posts.findById(id);
+        res.send({ status: "success", result });
     };
 
     /**
@@ -75,11 +67,10 @@ class PostsController {
     deleteById = async (req: Request, res: Response): Promise<void> => {
         const { id } = req.params;
         const deleteResult = await Model.Posts.findByIdAndDelete(id);
-        if (deleteResult) {
-            res.send({ status: "success", message: "刪除成功" });
-        } else {
-            res.status(400).send({ status: "error", message: "無此 id" });
+        if (!deleteResult) {
+            throw new Error("無此 id");
         }
+        res.send({ status: "success", message: "刪除成功" });
     };
 }
 

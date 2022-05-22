@@ -12,12 +12,8 @@ class UsersController {
 
     createUsers = async (req: Request, res: Response): Promise<void> => {
         const { name, email, photo } = req.body;
-        try {
-            const result = await Model.Users.create({ name, email, photo });
-            res.send({ status: "success", result });
-        } catch (error: any) {
-            res.status(400).send({ status: "error", message: error.message });
-        }
+        const result = await Model.Users.create({ name, email, photo });
+        res.send({ status: "success", result });
     };
 }
 
