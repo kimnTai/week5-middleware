@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema<IPost>(
         },
         tags: [{ type: String, required: [true, "貼文標籤 tags 未填寫"] }],
         type: { type: String, enum: ["group", "person"], required: [true, "貼文類型 type 未填寫"] },
-        image: { type: String, default: "https://picsum.photos/200/300" },
+        image: { type: String, required: [true, "貼文圖片 image 未填寫"] },
         createdAt: { type: Date, default: Date.now },
         content: { type: String, required: [true, "content 未填寫"] },
         likes: { type: Number, default: 0 },
