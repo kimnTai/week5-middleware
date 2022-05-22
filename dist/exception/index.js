@@ -21,7 +21,7 @@ var Exception = /** @class */ (function () {
          * @memberof Exception
          */
         this.catchCustomError = function (err, req, res, next) {
-            if (err.name === "ValidationError") {
+            if (err.name === "ValidationError" || err.name === "CastError") {
                 return res.status(400).send({ status: "error", message: err.message });
             }
             if (err.type === "entity.parse.failed") {

@@ -95,8 +95,13 @@ var PostsController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, content = _a.content, type = _a.type, user = _a.user, image = _a.image;
-                        return [4 /*yield*/, Model.Posts.create({ content: content, type: type, user: user, image: image })];
+                        return [4 /*yield*/, Model.Users.findById(user)];
                     case 1:
+                        if (!(_b.sent())) {
+                            throw new Error("無此 id");
+                        }
+                        return [4 /*yield*/, Model.Posts.create({ content: content, type: type, user: user, image: image })];
+                    case 2:
                         result = _b.sent();
                         res.send({ status: "success", result: result });
                         return [2 /*return*/];
