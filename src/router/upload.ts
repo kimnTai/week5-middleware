@@ -3,7 +3,7 @@ import multer from "multer";
 import * as Controller from "../controller";
 import Utils from "../utils";
 
-const router = express.Router();
+const router = Utils.catchAsyncRouter(express.Router());
 
 const upload = multer({
     // 限制上傳檔案的大小為 10 MB
@@ -19,6 +19,6 @@ const upload = multer({
     },
 });
 
-router.post("/", upload.single("image"), Utils.catchAsync(Controller.Image.getImage));
+router.post("/", upload.single("image"), Controller.Image.getImage);
 
 export default router;
