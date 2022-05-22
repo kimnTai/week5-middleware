@@ -1,4 +1,8 @@
-import { ErrorRequestHandler, Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
+
+interface CustomError extends Error {
+    type: string;
+}
 
 class Exception {
     constructor() {
@@ -26,15 +30,24 @@ class Exception {
 
     /**
      * @description 捕捉自訂錯誤
-     * @param {*} err
-     * @param {*} req
-     * @param {*} res
-     * @param {*} next
-     * @type {ErrorRequestHandler}
+     * @param {CustomError} err
+     * @param {Request} req
+     * @param {Response} res
+     * @param {NextFunction} next
      * @memberof Exception
      */
-    catchCustomError: ErrorRequestHandler = (err, req, res, next) => {
-        res.status(500).send({ status: "error", message: err.message });
+    catchCustomError = (err: CustomError, req: Request, res: Response, next: NextFunction) => {
+        if (err.name === "ValidationError") {
+            return res.status(400).send({ status: "error", message: err.message });
+        }
+        if (err.type === "entity.parse.failed") {
+            return res.status(400).send({ status: "error", message: err.type });
+        }
+        // 開發模式回傳錯誤訊息
+        if (process.env.NODE_ENV === "dev") {
+            return res.status(400).json({ status: "error", message: err.stack });
+        }
+        res.status(500).send({ status: "error", message: "系統錯誤" });
     };
 }
 
