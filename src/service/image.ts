@@ -27,7 +27,13 @@ class ImageService {
             },
         });
 
-        upload.single("image")(req, res, async () => {
+        upload.single("image")(req, res, async (error) => {
+            if (error) {
+                return next(error);
+            }
+            if (!req.file) {
+                return next(new Error("未上傳圖片"));
+            }
             req.body.image = await this.getImageUrl(req);
             next();
         });
