@@ -45,7 +45,7 @@ class Exception {
         }
         // 開發模式回傳錯誤訊息
         if (process.env.NODE_ENV === "dev") {
-            return res.status(400).json({ status: "error", message: err.stack });
+            return res.status(400).json({ status: "error", message: err.message, err });
         }
         res.status(500).send({ status: "error", message: "系統錯誤" });
     };
