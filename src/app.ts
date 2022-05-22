@@ -16,6 +16,7 @@ app.use(morgan("dev"));
 
 app.use("/posts", Router.posts);
 app.use("/users", Router.users);
+app.use("/upload", Router.upload);
 
 app.use(exception.notFindRoute);
 app.use(exception.catchCustomError);
