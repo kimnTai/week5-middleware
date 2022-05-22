@@ -27,7 +27,7 @@ class PostsController {
     createPosts = async (req: Request, res: Response): Promise<void> => {
         const { content, type, user, image } = req.body;
         if (!(await Model.Users.findById(user))) {
-            throw new Error("無此 id");
+            throw new Error("無此使用者 id");
         }
         const result = await Model.Posts.create({ content, type, user, image });
         res.send({ status: "success", result });
@@ -53,10 +53,12 @@ class PostsController {
      * @memberof PostsController
      */
     editPosts = async (req: Request, res: Response): Promise<void> => {
-        const { id } = req.params;
+        const { id: _id } = req.params;
         const { content, type, name } = req.body;
-        await Model.Posts.findByIdAndUpdate(id, { content, type, name });
-        const result = await Model.Posts.findById(id);
+        const result = await Model.Posts.findOneAndUpdate({ _id }, { content, type, name }, { new: true });
+        if (!result) {
+            throw new Error("無此貼文 id");
+        }
         res.send({ status: "success", result });
     };
 
@@ -69,9 +71,8 @@ class PostsController {
      */
     deleteById = async (req: Request, res: Response): Promise<void> => {
         const { id } = req.params;
-        const deleteResult = await Model.Posts.findByIdAndDelete(id);
-        if (!deleteResult) {
-            throw new Error("無此 id");
+        if (!(await Model.Posts.findByIdAndDelete(id))) {
+            throw new Error("無此貼文 id");
         }
         res.send({ status: "success", message: "刪除成功" });
     };
