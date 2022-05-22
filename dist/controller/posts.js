@@ -98,7 +98,7 @@ var PostsController = /** @class */ (function () {
                         return [4 /*yield*/, Model.Users.findById(user)];
                     case 1:
                         if (!(_b.sent())) {
-                            throw new Error("無此 id");
+                            throw new Error("無此使用者 id");
                         }
                         return [4 /*yield*/, Model.Posts.create({ content: content, type: type, user: user, image: image })];
                     case 2:
@@ -134,18 +134,18 @@ var PostsController = /** @class */ (function () {
          * @memberof PostsController
          */
         this.editPosts = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var id, _a, content, type, name, result;
+            var _id, _a, content, type, name, result;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        id = req.params.id;
+                        _id = req.params.id;
                         _a = req.body, content = _a.content, type = _a.type, name = _a.name;
-                        return [4 /*yield*/, Model.Posts.findByIdAndUpdate(id, { content: content, type: type, name: name })];
+                        return [4 /*yield*/, Model.Posts.findOneAndUpdate({ _id: _id }, { content: content, type: type, name: name }, { new: true })];
                     case 1:
-                        _b.sent();
-                        return [4 /*yield*/, Model.Posts.findById(id)];
-                    case 2:
                         result = _b.sent();
+                        if (!result) {
+                            throw new Error("無此貼文 id");
+                        }
                         res.send({ status: "success", result: result });
                         return [2 /*return*/];
                 }
@@ -159,16 +159,15 @@ var PostsController = /** @class */ (function () {
          * @memberof PostsController
          */
         this.deleteById = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var id, deleteResult;
+            var id;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = req.params.id;
                         return [4 /*yield*/, Model.Posts.findByIdAndDelete(id)];
                     case 1:
-                        deleteResult = _a.sent();
-                        if (!deleteResult) {
-                            throw new Error("無此 id");
+                        if (!(_a.sent())) {
+                            throw new Error("無此貼文 id");
                         }
                         res.send({ status: "success", message: "刪除成功" });
                         return [2 /*return*/];
