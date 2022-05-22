@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "d8c64a1c-0c65-485a-9120-735250a53c8c",
+		"name": "week5 - heroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "取得所有代辦",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sheltered-retreat-72836.herokuapp.com/posts?sort=new",
+					"protocol": "https",
+					"host": [
+						"sheltered-retreat-72836",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "new",
+							"description": "排序 new 或 old"
+						},
+						{
+							"key": "keyword",
+							"value": "測試",
+							"description": "關鍵字搜尋",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增單筆代辦",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": \"626e7a88e699706d629557c1\",\r\n    \"type\": \"person\",\r\n    \"tags\": \"貼文tag\",\r\n    \"content\": \"測試貼文\",\r\n    \"image\": \"https://i.imgur.com/FLa3HcR.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sheltered-retreat-72836.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"sheltered-retreat-72836",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除單筆代辦",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://sheltered-retreat-72836.herokuapp.com/posts/628a68b7899626a851f280e5",
+					"protocol": "https",
+					"host": [
+						"sheltered-retreat-72836",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"628a68b7899626a851f280e5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "編輯單筆代辦",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"content\": \"編輯單筆測試\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sheltered-retreat-72836.herokuapp.com/posts/628025cdb157567fe060a447",
+					"protocol": "https",
+					"host": [
+						"sheltered-retreat-72836",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"628025cdb157567fe060a447"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "取得所有會員",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sheltered-retreat-72836.herokuapp.com/users",
+					"protocol": "https",
+					"host": [
+						"sheltered-retreat-72836",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增單筆會員",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"測試會員2\",\r\n  \"email\": \"a123@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sheltered-retreat-72836.herokuapp.com/users",
+					"protocol": "https",
+					"host": [
+						"sheltered-retreat-72836",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
