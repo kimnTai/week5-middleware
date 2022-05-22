@@ -37,7 +37,7 @@ class Exception {
      * @memberof Exception
      */
     catchCustomError = (err: CustomError, req: Request, res: Response, next: NextFunction) => {
-        if (err.name === "ValidationError") {
+        if (err.name === "ValidationError" || err.name === "CastError") {
             return res.status(400).send({ status: "error", message: err.message });
         }
         if (err.type === "entity.parse.failed") {
