@@ -55,7 +55,7 @@ var ImageController = /** @class */ (function () {
                         formData = new form_data_1.default();
                         formData.append("image", req.file.buffer);
                         return [4 /*yield*/, axios_1.default.post("https://api.imgur.com/3/image", formData, {
-                                headers: { Authorization: "Client-D 62004dc8f2239f1" },
+                                headers: { Authorization: "Client-ID 62004dc8f2239f1" },
                             })];
                     case 1:
                         data = (_a.sent()).data;
